@@ -36,22 +36,9 @@ html, body, #map-canvas {
 		var start = document.getElementById("start").value;
 		var end = document.getElementById("end").value;
 		
-		
-		var waypts = [];
-		var checkboxArray = document.getElementById('waypoints');
-		for (var i = 0; i < checkboxArray.length; i++) {
-			if (checkboxArray.options[i].selected == true) {
-				waypts.push({
-				location:checkboxArray[i].value,
-				stopover:true});
-			}
-		}
-		
-		
 		var request = {
 			origin:start,
 			destination:end,
-			waypoints:waypts,
 			travelMode: google.maps.TravelMode.DRIVING
 		};
 		
@@ -70,8 +57,12 @@ html, body, #map-canvas {
 					summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
 					summaryPanel.innerHTML += route.legs[i].duration.text + '<br>';
 					summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+					
+					var res =  Number(route.legs[i].distance.text.replace(" km", "").replace(/[$,]+/g,".")) * 10;
+					
+					summaryPanel.innerHTML += res  + '<br><br>';
+
 				}
-			
 			}
 		});
 	}
@@ -81,6 +72,7 @@ html, body, #map-canvas {
 </head>
 <body>
 	<!--  <div id="map-canvas"></div>-->
+	<h3>Valor: R$ 10,00 por kilometro rodado</h3>
 	<div>
 		<strong>Start: </strong> <select id="start" onChange="calcRoute();">
 			<option value="Jaipur">Jaipur</option>
@@ -109,21 +101,6 @@ html, body, #map-canvas {
 			<option value="Bikaner">Bikaner</option>
 			<option value="Churu">Churu</option>
 		</select>
-	</div>
-
-	<div>
-		<strong>Mode of Travel: </strong> <select id="mode"
-			onChange="calcRoute();">
-			<option value="DRIVING">Driving</option>
-			<option value="WALKING">Walking</option>
-			<option value="BICYCLING">Bicycling</option>
-			<option value="TRANSIT">Transit</option>
-		</select> <select multiple id="waypoints" onChange="calcRoute();">
-			<option value="bassi">bassi</input>
-			<option value="chainpura">chainpura</input>
-			<option value="Kanauta">Kanauta</input>
-		</select>
-
 	</div>
 
 	<div id="map-canvas" style="float: left; width: 70%; height: 40%"></div>

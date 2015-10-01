@@ -8,6 +8,10 @@ public class OlaMundoController {
   @RequestMapping("/olaMundoSpring")
   public String execute() {
     System.out.println("Executando a lógica com Spring MVC");
-    return "ok";
+    return "ok3";
   }
 }
+
+
+
+//https://maps.googleapis.com/maps/api/directions/output?parameters
