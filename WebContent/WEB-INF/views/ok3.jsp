@@ -58,7 +58,7 @@ html, body, #map-canvas {
 					summaryPanel.innerHTML += route.legs[i].duration.text + '<br>';
 					summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
 					
-					var res =  Number(route.legs[i].distance.text.replace(" km", "").replace(/[$,]+/g,".")) * 10;
+					var res =  "Valor: R$ " + Number(route.legs[i].distance.text.replace(" km", "").replace(/[$,]+/g,".")) * 10;
 					
 					summaryPanel.innerHTML += res  + '<br><br>';
 
