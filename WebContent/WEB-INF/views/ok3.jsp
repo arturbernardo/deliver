@@ -21,11 +21,11 @@ html, body, #map-canvas {
 	
 	function initialize() {
 	directionsDisplay = new google.maps.DirectionsRenderer();
-	var chicago = new google.maps.LatLng(26.912417,75.787288);
+	var cidade = new google.maps.LatLng(-30.101117, -51.1589488);
 	var mapOptions = {
 	zoom:7,
 	mapTypeId: google.maps.MapTypeId.ROADMAP,
-	center: chicago
+	center: cidade
 	}
 	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 	directionsDisplay.setMap(map);
@@ -74,33 +74,8 @@ html, body, #map-canvas {
 	<!--  <div id="map-canvas"></div>-->
 	<h3>Valor: R$ 10,00 por kilometro rodado</h3>
 	<div>
-		<strong>Start: </strong> <select id="start" onChange="calcRoute();">
-			<option value="Jaipur">Jaipur</option>
-			<option value="jagatpura">jagatpura</option>
-			<option value="malviya nagar, Jaipur">Malviya Nagar</option>
-			<option value="khatu">Sikar</option>
-			<option value="Dausa">Dausa</option>
-			<option value="Luniawas">Luniyawas</option>
-			<option value="Karoli">Karoli</option>
-			<option value="Baran">Baran</option>
-			<option value="Sawai Madhopur">Sawai Madhopur</option>
-			<option value="Udaipur">Udaipur</option>
-			<option value="Bikaner">Bikaner</option>
-			<option value="Churu">Churu</option>
-		</select> <strong>End: </strong> <select id="end" onChange="calcRoute();">
-			<option value="Jaipur">Jaipur</option>
-			<option value="bassi">bassi</option>
-			<option value="goner">goner</option>
-			<option value="Khaniya">Khaniya</option>
-			<option value="Luniawas">Luniyawas</option>
-			<option value="Ajmer">Ajmer</option>
-			<option value="Karoli">Karoli</option>
-			<option value="Baran">Baran</option>
-			<option value="Sawai Madhopur">Sawai Madhopur</option>
-			<option value="Udaipur">Udaipur</option>
-			<option value="Bikaner">Bikaner</option>
-			<option value="Churu">Churu</option>
-		</select>
+		<input id="start" type="text" onChange="calcRoute();">
+		<input id="end"type="text" onChange="calcRoute();">
 	</div>
 
 	<div id="map-canvas" style="float: left; width: 70%; height: 40%"></div>
