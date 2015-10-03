@@ -5,13 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class OlaMundoController {
-  @RequestMapping("/olaMundoSpring")
-  public String execute() {
-    System.out.println("Executando a lógica com Spring MVC");
-    return "ok3";
-  }
+	@RequestMapping("/olaMundoSpring")
+	public String execute() {
+		System.out.println("Executando a lógica com Spring MVC");
+		return "ok4";
+	}
 }
 
-
-
-//https://maps.googleapis.com/maps/api/directions/output?parameters
+// https://maps.googleapis.com/maps/api/directions/output?parameters

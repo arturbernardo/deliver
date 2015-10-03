@@ -4,6 +4,8 @@
 <title>Simple Map</title>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <meta charset="utf-8">
+<script src="resources/js/jquery.js"></script>
+<script src="resources/javascript/mapa.js"></script>
 <style>
 html, body, #map-canvas {
 	margin: 0;
@@ -11,15 +13,12 @@ html, body, #map-canvas {
 	height: 100%;
 }
 </style>
-<script
-	src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-<script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 
+<script>
+function initialize() {
 	var directionsDisplay;
-	var directionsService = new google.maps.DirectionsService();
-	var map;
-	
-	function initialize() {
+
 	directionsDisplay = new google.maps.DirectionsRenderer();
 	var cidade = new google.maps.LatLng(-30.101117, -51.1589488);
 	var mapOptions = {
@@ -30,8 +29,8 @@ html, body, #map-canvas {
 	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 	directionsDisplay.setMap(map);
 	
-	}
-	
+
+
 	function calcRoute() {
 		var start = document.getElementById("start").value;
 		var end = document.getElementById("end").value;
@@ -61,14 +60,17 @@ html, body, #map-canvas {
 					var res =  "Valor: R$ " + Number(route.legs[i].distance.text.replace(" km", "").replace(/[$,]+/g,".")) * 10;
 					
 					summaryPanel.innerHTML += res  + '<br><br>';
-
+	
 				}
 			}
 		});
 	}
 	google.maps.event.addDomListener(window, 'load', initialize);
 
-            </script>
+}
+	
+</script>
+
 </head>
 <body>
 	<!--  <div id="map-canvas"></div>-->
