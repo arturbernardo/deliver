@@ -13,8 +13,7 @@
 	var directionsService = new google.maps.DirectionsService();
 	var map;
 	
-    var style = [
-                 {
+    var style = [{
                      "featureType": "road",
                      "elementType": "geometry",
                      "stylers": [
