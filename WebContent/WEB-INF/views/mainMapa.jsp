@@ -101,10 +101,9 @@
 				
 				for (var i = 0; i < route.legs.length; i++) {
 					var routeSegment = i + 1;
-					summaryPanel.innerHTML += '<b>Informações: '
-							+ routeSegment + '</b><br>';
+					summaryPanel.innerHTML += '<b>Informações: ' + '</b><br>';
 					summaryPanel.innerHTML += route.legs[i].start_address
-							+ ' to ';
+							+ ' <br> para <br>';
 					summaryPanel.innerHTML += route.legs[i].end_address
 							+ '<br>';
 					summaryPanel.innerHTML += route.legs[i].duration.text
@@ -150,10 +149,10 @@
 	            </div>
 			</form>
 		</div>
+		<div class="row voffset3">
+			<div id="directions_panel"></div>
+		</div>
 	</div>
-	
-		<div id="map-canvas"></div>
-		<div id="directions_panel" style="margin: 20px; background-color: #FFEE77;"></div>
-
+	<div id="map-canvas"></div>
 </body>
 </html>
