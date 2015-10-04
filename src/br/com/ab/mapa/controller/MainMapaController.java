@@ -7,16 +7,14 @@ import br.com.ab.mapa.dao.PedidoDao;
 
 
 @Controller
-public class OlaMundoController {
+public class MainMapaController {
 		
-	@RequestMapping("/olaMundoSpring")
+	@RequestMapping("/")
 	public String execute() {
 		System.out.println("Executando a lógica com Spring MVC");
 		PedidoDao pedidoDao = new PedidoDao();
 		pedidoDao.testeSQL();
 
-		return "ok4";
+		return "mainMapa";
 	}
 }
-
-// https://maps.googleapis.com/maps/api/directions/output?parameters
