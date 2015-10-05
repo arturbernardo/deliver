@@ -16,14 +16,16 @@ html, body, #map-canvas {
     box-shadow: 0 0 3px rgba(0,0,0,0.18),0 5px 16px rgba(0,0,0,0.36);
     padding: 20px;
     margin-left: 20px;
-    background-color: #fff;
-   	z-index: 1;
+    background-color: #f7f7f9;
+    z-index: 1;
     
 }
 
 #directions_panel {
 	margin: 20px; 
-	background-color: #FFEE77;
+	background-color: #FFF;
+    border-radius: 3px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.18),0 5px 16px rgba(0,0,0,0.36);
 }
 
 .voffset  { margin-top: 2px; }

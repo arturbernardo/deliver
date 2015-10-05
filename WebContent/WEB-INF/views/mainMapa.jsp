@@ -67,9 +67,9 @@
 
 	function initialize() {
 		directionsDisplay = new google.maps.DirectionsRenderer();
-		var cidade = new google.maps.LatLng(-30.101117, -51.1589488);
+		var cidade = new google.maps.LatLng(-30.0381544, -51.2311619);
 		var mapOptions = {
-			zoom : 7,
+			zoom : 15,
 			mapTypeId : google.maps.MapTypeId.ROADMAP,
 			center : cidade,
 			styles: style
@@ -102,10 +102,6 @@
 				for (var i = 0; i < route.legs.length; i++) {
 					var routeSegment = i + 1;
 					summaryPanel.innerHTML += '<b>Informações: ' + '</b><br>';
-					summaryPanel.innerHTML += route.legs[i].start_address
-							+ ' <br> para <br>';
-					summaryPanel.innerHTML += route.legs[i].end_address
-							+ '<br>';
 					summaryPanel.innerHTML += route.legs[i].duration.text
 							+ '<br>';
 					summaryPanel.innerHTML += route.legs[i].distance.text
@@ -127,24 +123,22 @@
 		<h3>Pedido:</h3>
 	 	<div class="row voffset3">
 	        <div class="col-md-3">Coleta:</div>
-	        <div class="col-md-6"><input id="start" type="text" onChange="calcRoute();"></div>
+	        <div class="col-md-6"><input id="start" type="text" class="form-control" onChange="calcRoute();"></div>
       	</div>
       	<div class="row voffset3">
 	        <div class="col-md-3">Entrega:</div>
-	        <div class="col-md-6"><input id="end" type="text" onChange="calcRoute();"></div>
+	        <div class="col-md-6"><input id="end" type="text" class="form-control" onChange="calcRoute();"></div>
       	</div>
 	    <div class="row voffset3">
 			    <div class="col-md-3">
             	<button type="button" class="btn btn-info">Buscar Caminho</button>
            	</div>
           	</div>
-           <div class="row voffset3">
-      	 		<div class="col-md-3">
-        	 	<form action="/Home/SearchResults" class="" method="post">  
-            		<button type="submit" class="btn btn-success">Confirmar Pedido</button>
-            	</form>
-           	</div>
-           </div>
+            <div class="row voffset3">
+				<div class="col-md-3">
+          			<button type="submit" class="btn btn-success" onClick="postPedido()">Confirmar Pedido</button>
+        		</div>
+            </div>
 		<div class="row voffset3">
 			<div id="directions_panel" class="col-md-9"></div>
 		</div>
