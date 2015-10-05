@@ -11,6 +11,12 @@
 <script src="resources/javascript/mapa.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script>
+
+	function atualizaValores(){
+		calcRoute();
+	}
+
+
 	var directionsDisplay;
 	var directionsService = new google.maps.DirectionsService();
 	var map;
@@ -84,6 +90,7 @@
 	function calcRoute() {
 		var start = document.getElementById("start").value;
 		var end = document.getElementById("end").value;
+		var valor = $( ".selectpicker option:selected" ).val();
 
 		var request = {
 			origin : start,
@@ -106,7 +113,7 @@
 							+ '<br>';
 					summaryPanel.innerHTML += route.legs[i].distance.text
 							+ '<br><br>';
-					var res =  "Valor: R$ " + Number(route.legs[i].distance.text.replace(" km", "").replace(/[$,]+/g,".")) * 10;
+					var res =  "Valor: R$ " + Number(route.legs[i].distance.text.replace(" km", "").replace(/[$,]+/g,".")) * Number(valor);
 					summaryPanel.innerHTML += res  + '<br><br>';
 
 				}
@@ -121,6 +128,19 @@
 <body>
 	<div id="pedidoMenu" class="container-fluid">
 		<h3>Pedido:</h3>
+		
+	 	<div class="row voffset3">
+	        <div class="col-md-3">Serviço:</div>
+	        
+		    <div class="col-md-6">
+				<select class="selectpicker form-control" onClick="atualizaValores()">
+					<option value="1">Motoboy</option>
+					<option value="2">Veículo Utilitário</option>
+					<option value="3">Transporte Pessoal</option>
+				</select>
+	      	</div>
+      	</div>
+		
 	 	<div class="row voffset3">
 	        <div class="col-md-3">Coleta:</div>
 	        <div class="col-md-6"><input id="start" type="text" class="form-control" onChange="calcRoute();"></div>
