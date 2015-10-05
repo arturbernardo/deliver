@@ -7,9 +7,13 @@ html, body, #map-canvas {
 }
 
 #pedidoMenu {
-	position: absolute;
+    position: absolute;
     top: 85px;
     left: 20px;
+    height: 479px;
+    width: 360px;
+    border-radius: 3px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.18),0 5px 16px rgba(0,0,0,0.36);
     padding: 20px;
     margin-left: 20px;
     background-color: #fff;

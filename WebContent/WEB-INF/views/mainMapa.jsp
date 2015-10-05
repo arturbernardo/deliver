@@ -125,34 +125,31 @@
 <body>
 	<div id="pedidoMenu" class="container-fluid">
 		<h3>Pedido:</h3>
-		<div>
-		 	<div class="row voffset3">
-			        <div class="col-md-3">Coleta:</div>
-			        <div class="col-md-6"><input id="start" type="text" onChange="calcRoute();"></div>
-			        <div class="col-md-3"></div>
-		      	</div>
-		      	<div class="row voffset3">
-			        <div class="col-md-3">Entrega:</div>
-			        <div class="col-md-6"><input id="end" type="text" onChange="calcRoute();"></div>
-			        <div class="col-md-3"></div>
-		      	</div>
- 			    <div class="row voffset3">
-	 			    <div class="col-md-3">
-		            	<button type="button" class="btn btn-info">Buscar Caminho</button>
-	            	</div>
-	            </div>
-			<form action="/Home/SearchResults" class="" method="post">  
-	            <div class="row voffset3">
-         	 		<div class="col-md-3">
-	            		<button type="submit" class="btn btn-success">Confirmar Pedido</button>
-	            	</div>
-	            </div>
-			</form>
-		</div>
+	 	<div class="row voffset3">
+	        <div class="col-md-3">Coleta:</div>
+	        <div class="col-md-6"><input id="start" type="text" onChange="calcRoute();"></div>
+      	</div>
+      	<div class="row voffset3">
+	        <div class="col-md-3">Entrega:</div>
+	        <div class="col-md-6"><input id="end" type="text" onChange="calcRoute();"></div>
+      	</div>
+	    <div class="row voffset3">
+			    <div class="col-md-3">
+            	<button type="button" class="btn btn-info">Buscar Caminho</button>
+           	</div>
+          	</div>
+           <div class="row voffset3">
+      	 		<div class="col-md-3">
+        	 	<form action="/Home/SearchResults" class="" method="post">  
+            		<button type="submit" class="btn btn-success">Confirmar Pedido</button>
+            	</form>
+           	</div>
+           </div>
 		<div class="row voffset3">
-			<div id="directions_panel"></div>
+			<div id="directions_panel" class="col-md-9"></div>
 		</div>
 	</div>
+	
 	<div id="map-canvas"></div>
 </body>
 </html>
