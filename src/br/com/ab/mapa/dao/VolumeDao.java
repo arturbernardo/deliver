@@ -4,10 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import br.com.ab.mapa.ConnectionFactory;
+import br.com.ab.mapa.entity.Volume;
 
 @Component
 public class VolumeDao {
@@ -22,25 +25,23 @@ public class VolumeDao {
 		}
 	}
 
-	public String testeSQL() {
-		String sql = "SELECT id FROM pedido WHERE id = 1";
+	public List<Volume> getVolumes() {
+		String sql = "SELECT id, nome, valor FROM volume";
 		PreparedStatement stmt;
 		try {
-
 			stmt = connection.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             
-            String id = "";
+            List<Volume> map = new ArrayList<Volume>();
             while (rs.next()) {
-            	id = rs.getString("id");
+            	map.add(new Volume(rs.getString("id"), rs.getString("nome"), rs.getString("valor")));
             }
             
 			connection.close();
 			
-			return id;
+			return map;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		
 	}
 }

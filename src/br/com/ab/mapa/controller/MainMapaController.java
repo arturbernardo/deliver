@@ -1,19 +1,19 @@
 package br.com.ab.mapa.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import br.com.ab.mapa.dao.PedidoDao;
-
+import br.com.ab.mapa.dao.VolumeDao;
 
 @Controller
 public class MainMapaController {
 		
 	@RequestMapping("/")
-	public String execute() {
+	public String execute(Model model) {
 		System.out.println("Executando a lógica com Spring MVC");
-		PedidoDao pedidoDao = new PedidoDao();
-		pedidoDao.testeSQL();
+		VolumeDao volumeDao = new VolumeDao();
+		
+		model.addAttribute("volumes",volumeDao.getVolumes());
 
 		return "mainMapa";
 	}

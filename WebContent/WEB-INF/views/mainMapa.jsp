@@ -1,5 +1,10 @@
-
+<%@page import="br.com.ab.mapa.entity.Volume"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <head>
 <title>Deliver</title>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
@@ -108,7 +113,7 @@
 				
 				for (var i = 0; i < route.legs.length; i++) {
 					var routeSegment = i + 1;
-					summaryPanel.innerHTML += '<b>Informações: ' + '</b><br>';
+					summaryPanel.innerHTML += '<b>InformaÃ§Ãµes: ' + '</b><br>';
 					summaryPanel.innerHTML += route.legs[i].duration.text
 							+ '<br>';
 					summaryPanel.innerHTML += route.legs[i].distance.text
@@ -130,14 +135,19 @@
 		<h3>Pedido:</h3>
 		
 	 	<div class="row voffset3">
-	        <div class="col-md-3">Serviço:</div>
-	        
+	        <div class="col-md-3">ServiÃ§o:</div>
+
 		    <div class="col-md-6">
-				<select class="selectpicker form-control" onClick="atualizaValores()">
-					<option value="1">Motoboy</option>
-					<option value="2">Veículo Utilitário</option>
-					<option value="3">Transporte Pessoal</option>
-				</select>
+			    <select class="selectpicker form-control" onclick="atualizaValores()">
+			        <%
+			            List<Volume> volumeList = (List<Volume>) request.getAttribute("volumes");
+			            for(Volume v : volumeList) {
+			        %>
+				    	<option value="<%= v.getValor() %>"><%= v.getNome() %></option>
+					<%
+						}
+					%>
+     			</select>
 	      	</div>
       	</div>
 		
