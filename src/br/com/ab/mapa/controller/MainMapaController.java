@@ -29,11 +29,16 @@ public class MainMapaController {
 		PedidoDao pedidoDao = new PedidoDao();
 		VolumeService volumeService = new VolumeService();
 
+		pedidoDao.insert(request.getParameter("coleta"), request.getParameter("entrega"), 
+				kmToDecial(request.getParameter("distancia")), request.getParameter("valor"), request.getParameter("volume"));
+		
 		model.addAttribute("volumes", volumeService.getVolumes());
 
-		pedidoDao.insert(request.getParameter("coleta"), request.getParameter("entrega"));
-		
 
 		return "mainMapa";
 	}
+
+    private String kmToDecial(String km) {
+        return km.substring(0,km.length()-3).replace(",", ".");
+    }
 }

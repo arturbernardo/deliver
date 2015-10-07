@@ -13,7 +13,6 @@ public class OlaMundoController {
 	public String execute() {
 		System.out.println("Executando a lógica com Spring MVC");
 		PedidoDao pedidoDao = new PedidoDao();
-		pedidoDao.testeSQL();
 
 		return "ok4";
 	}

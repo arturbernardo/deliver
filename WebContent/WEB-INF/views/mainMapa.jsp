@@ -21,10 +21,14 @@
 
     	var coleta = $('#start').val();
 	    var entrega = $('#end').val();
+	    var distancia = $('#distance').html();
+	    var valor = $('#value').html();
+	    var volume = $('#volume').find(":selected").val();
+
 	       
 	    $.ajax({
 	        url: "/deliver/save",
-	        data: {coleta: coleta, entrega : entrega},
+	        data: {volume : volume, coleta: coleta, entrega : entrega, distancia : distancia, valor : valor},
 	        type: "POST",
 	        success: function(smartphone) {
 				console.log("aadasdasd");
@@ -136,10 +140,10 @@
 					summaryPanel.innerHTML += '<b>Informações: ' + '</b><br>';
 					summaryPanel.innerHTML += route.legs[i].duration.text
 							+ '<br>';
-					summaryPanel.innerHTML += route.legs[i].distance.text
+					summaryPanel.innerHTML += '<div id="distance">' + route.legs[i].distance.text + '</div>'
 							+ '<br><br>';
-					var res =  "Valor: R$ " + Number(route.legs[i].distance.text.replace(" km", "").replace(/[$,]+/g,".")) * Number(valor);
-					summaryPanel.innerHTML += res  + '<br><br>';
+					var res =  Number(route.legs[i].distance.text.replace(" km", "").replace(/[$,]+/g,".")) * Number(valor);
+					summaryPanel.innerHTML += 'Valor: R$' +  '<div id="value">' + res  + '</div><br><br>';
 
 				}
 
@@ -158,7 +162,7 @@
 	        <div class="col-md-3">Serviço:</div>
 
 		    <div class="col-md-6">
-			    <select class="selectpicker form-control" onclick="atualizaValores()">
+			    <select id="volume" class="selectpicker form-control" onclick="atualizaValores()">
 			        <%
 			            List<Volume> volumeList = (List<Volume>) request.getAttribute("volumes");
 			            for(Volume v : volumeList) {
