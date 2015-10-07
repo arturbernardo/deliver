@@ -24,14 +24,14 @@ public class PedidoController {
 	public String search(HttpServletRequest request, Model model) {
 		PedidoService pedidoService = new PedidoService();
 		model.addAttribute("pedidos", pedidoService.getPedidosByFilter(
-				request.getParameter("id"), 
-				request.getParameter("cliente"), 
-				request.getParameter("distancia"), 
-				request.getParameter("valor"), 
-				request.getParameter("coleta"), 
-				request.getParameter("entrega"), 
-				request.getParameter("veiculo"), 
-				request.getParameter("data")));
+				request.getParameter("id") == null ? "" : request.getParameter("id"), 
+				request.getParameter("cliente") == null ? "" : request.getParameter("cliente"), 
+				request.getParameter("distancia") == null ? "" : request.getParameter("distancia"), 
+				request.getParameter("valor") == null ? "" : request.getParameter("valor"), 
+				request.getParameter("coleta") == null ? "" : request.getParameter("coleta"), 
+				request.getParameter("entrega") == null ? "" : request.getParameter("entrega"), 
+				request.getParameter("veiculo") == null ? "" : request.getParameter("veiculo"), 
+				request.getParameter("data") == null ? "" : request.getParameter("data")));
 
 		return "pedidos";
 	}

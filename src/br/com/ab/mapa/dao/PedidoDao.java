@@ -60,13 +60,13 @@ public class PedidoDao {
 			String veiculo, String data) {
 		return new StringBuilder()
 				.append(!id.equals("") ? "AND id = '" + id + "'" : "")
-				.append(!cliente.equals("") ? "AND id = '" + cliente + "'" : "")
-				.append(!distancia.equals("") ? "AND id = '" + distancia + "'" : "")
-				.append(!valor.equals("") ? "AND id = '" + valor + "'" : "")
-				.append(!entrega.equals("") ? "AND id = '" + entrega + "'" : "")
-				.append(!veiculo.equals("") ? "AND id = '" + veiculo + "'" : "")
-				.append(!data.equals("") ? "AND id = '" + data + "'" : "")
-				.append(!coleta.equals("") ? "AND id = '" + coleta + "'" : "").toString();
+				.append(!cliente.equals("") ? "AND cliente = '" + cliente + "'" : "")
+				.append(!distancia.equals("") ? "AND distancia = '" + distancia + "'" : "")
+				.append(!valor.equals("") ? "AND valor = '" + valor + "'" : "")
+				.append(!entrega.equals("") ? "AND entrega = '" + entrega + "'" : "")
+				.append(!veiculo.equals("") ? "AND veiculo = '" + veiculo + "'" : "")
+				.append(!data.equals("") ? "AND data = '" + data + "'" : "")
+				.append(!coleta.equals("") ? "AND coleta = '" + coleta + "'" : "").toString();
 	}
 
 	private List<PedidoEntity> executeReturiningPedido(String sql, String where) throws SQLException {

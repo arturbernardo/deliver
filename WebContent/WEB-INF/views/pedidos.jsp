@@ -24,11 +24,67 @@
 
 </head>
 <body>
-	<form action="/deliver/search">
-	
-	</form>
 	<div class="container">
 		<h2>Pedidos</h2>
+		<form action="/deliver/pedido/search" method="get">
+		 	<div class="row">
+				<div class="form-group col-md-2">
+					<label for="id" class="pull-right">Código:</label> 
+				</div>
+				<div class="form-group col-md-3">
+					<input type="text" class="form-control pull-left" name="id">
+				</div>
+				<div class="form-group col-md-2">
+					<label for="cliente" class="pull-right">Cliente:</label> 
+				</div>
+				<div class="form-group col-md-3">
+					<input type="text" class="form-control pull-left" name="cliente">
+				</div>						 	
+			</div>
+		 	<div class="row">
+				<div class="form-group col-md-2">
+					<label for="distancia" class="pull-right">Distância:</label> 
+				</div>
+				<div class="form-group col-md-3">
+					<input type="text" class="form-control pull-left" name="distancia">
+				</div>
+				<div class="form-group col-md-2">
+					<label for="valor" class="pull-right">Valor:</label> 
+				</div>
+				<div class="form-group col-md-3">
+					<input type="text" class="form-control pull-left" name="valor">
+				</div>						 	
+			</div>
+		 	<div class="row">
+				<div class="form-group col-md-2">
+					<label for="coleta" class="pull-right">Coleta:</label> 
+				</div>
+				<div class="form-group col-md-3">
+					<input type="text" class="form-control pull-left" name="coleta">
+				</div>
+				<div class="form-group col-md-2">
+					<label for="entrega" class="pull-right">Entrega:</label> 
+				</div>
+				<div class="form-group col-md-3">
+					<input type="text" class="form-control pull-left" name="entrega">
+				</div>						 	
+			</div>	
+		 	<div class="row">
+				<div class="form-group col-md-2">
+					<label for="veiculo" class="pull-right">Veículo:</label> 
+				</div>
+				<div class="form-group col-md-3">
+					<input type="text" class="form-control pull-left" name="veiculo">
+				</div>
+				<div class="form-group col-md-2">
+					<label for="entrega" class="pull-right">Data:</label> 
+				</div>
+				<div class="form-group col-md-3">
+					<input type="text" class="form-control pull-left" name="data">
+				</div>						 	
+			</div>					
+			<button type="submit" class="btn btn-default">Procurar</button>
+		</form>
 		<div class="table-responsive">
 			<table class="table">
 				<thead>
@@ -44,20 +100,20 @@
 					</tr>
 				</thead>
 				<tbody>
-			        <%
-			            List<Pedido> pedidoList = (List<Pedido>) request.getAttribute("pedidos");
-			            for(Pedido p : pedidoList) {
-			        %>
-						<tr>
-							<td><%= p.getId() %></td>
-							<td><%= p.getCliente() %></td>
-							<td><%= p.getDistancia() %></td>
-							<td><%= p.getValor() %></td>
-							<td><%= p.getColeta() %></td>
-							<td><%= p.getEntrega() %></td>
-							<td><%= p.getVeiculo() %></td>
-							<td><%= p.getData() %></td>
-						</tr>
+					<%
+						List<Pedido> pedidoList = (List<Pedido>) request.getAttribute("pedidos");
+						for (Pedido p : pedidoList) {
+					%>
+					<tr>
+						<td><%=p.getId()%></td>
+						<td><%=p.getCliente()%></td>
+						<td><%=p.getDistancia()%></td>
+						<td><%=p.getValor()%></td>
+						<td><%=p.getColeta()%></td>
+						<td><%=p.getEntrega()%></td>
+						<td><%=p.getVeiculo()%></td>
+						<td><%=p.getData()%></td>
+					</tr>
 					<%
 						}
 					%>
