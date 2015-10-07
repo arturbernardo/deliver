@@ -39,31 +39,58 @@ public class PedidoDao {
 	}
 
 	public List<PedidoEntity> getPedidos() {
-		String sql = "SELECT id, cliente, distancia, valor, coleta, entrega, veiculo, data FROM pedido";
-		PreparedStatement stmt;
-		try {
+		return getPedidosByFilter("", "", "", "", "", "", "", "");
+	}
 
-			stmt = connection.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
-            
-            List<PedidoEntity> pedidos = new ArrayList<PedidoEntity>();
-            while (rs.next()) {
-            	pedidos.add(
-            			new PedidoEntity(
-            					rs.getString("id"), 
-            					rs.getString("cliente"), 
-            					rs.getString("distancia"),
-            					rs.getString("valor"), 
-            					rs.getString("coleta"), 
-            					rs.getString("entrega"), 
-            					rs.getString("veiculo"), 
-            					rs.getString("data")));
-            }
+	public List<PedidoEntity> getPedidosByFilter(String id, String cliente, String distancia, String valor, String coleta, String entrega, String veiculo, String data) {
+		String sql = "SELECT id, cliente, distancia, valor, coleta, entrega, veiculo, data FROM pedido WHERE 1 = 1 ";
+		String where = buildWhere(id, cliente, distancia, valor, coleta, entrega, veiculo, data);
+		try {
+			List<PedidoEntity> pedidos = executeReturiningPedido(sql, where);
 			connection.close();
 			
 			return pedidos;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+
+	private String buildWhere(String id, String cliente, String distancia, String valor, String coleta, String entrega,
+			String veiculo, String data) {
+		return new StringBuilder()
+				.append(!id.equals("") ? "AND id = '" + id + "'" : "")
+				.append(!cliente.equals("") ? "AND id = '" + cliente + "'" : "")
+				.append(!distancia.equals("") ? "AND id = '" + distancia + "'" : "")
+				.append(!valor.equals("") ? "AND id = '" + valor + "'" : "")
+				.append(!entrega.equals("") ? "AND id = '" + entrega + "'" : "")
+				.append(!veiculo.equals("") ? "AND id = '" + veiculo + "'" : "")
+				.append(!data.equals("") ? "AND id = '" + data + "'" : "")
+				.append(!coleta.equals("") ? "AND id = '" + coleta + "'" : "").toString();
+	}
+
+	private List<PedidoEntity> executeReturiningPedido(String sql, String where) throws SQLException {
+		PreparedStatement stmt;
+		stmt = connection.prepareStatement(sql + where);
+		ResultSet rs = stmt.executeQuery();
+		
+		List<PedidoEntity> pedidos = new ArrayList<PedidoEntity>();
+		while (rs.next()) {
+			binder(rs, pedidos);
+		}
+		return pedidos;
+	}
+
+	private void binder(ResultSet rs, List<PedidoEntity> pedidos) throws SQLException {
+		pedidos.add(
+				new PedidoEntity(
+						rs.getString("id"), 
+						rs.getString("cliente"), 
+						rs.getString("distancia"),
+						rs.getString("valor"), 
+						rs.getString("coleta"), 
+						rs.getString("entrega"), 
+						rs.getString("veiculo"), 
+						rs.getString("data")));
 	}
 }

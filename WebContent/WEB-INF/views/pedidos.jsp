@@ -24,6 +24,9 @@
 
 </head>
 <body>
+	<form action="/deliver/search">
+	
+	</form>
 	<div class="container">
 		<h2>Pedidos</h2>
 		<div class="table-responsive">
