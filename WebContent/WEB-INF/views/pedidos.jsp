@@ -26,17 +26,18 @@
 <body>
 	<div class="container">
 		<h2>Pedidos</h2>
-		<p>asdasdasd:</p>
 		<div class="table-responsive">
 			<table class="table">
 				<thead>
 					<tr>
-						<th>#</th>
-						<th>Firstname</th>
-						<th>Lastname</th>
-						<th>Age</th>
-						<th>City</th>
-						<th>Country</th>
+						<th>Código</th>
+						<th>Cliente</th>
+						<th>Distância</th>
+						<th>Valor</th>
+						<th>Coleta</th>
+						<th>Entrega</th>
+						<th>Veículo</th>
+						<th>Data</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -45,12 +46,14 @@
 			            for(Pedido p : pedidoList) {
 			        %>
 						<tr>
-							<td>1</td>
-							<td>Anna</td>
-							<td>Pitt</td>
-							<td>35</td>
-							<td>New York</td>
-							<td>USA</td>
+							<td><%= p.getId() %></td>
+							<td><%= p.getCliente() %></td>
+							<td><%= p.getDistancia() %></td>
+							<td><%= p.getValor() %></td>
+							<td><%= p.getColeta() %></td>
+							<td><%= p.getEntrega() %></td>
+							<td><%= p.getVeiculo() %></td>
+							<td><%= p.getData() %></td>
 						</tr>
 					<%
 						}

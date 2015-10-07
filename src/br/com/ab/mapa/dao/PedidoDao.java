@@ -39,7 +39,7 @@ public class PedidoDao {
 	}
 
 	public List<PedidoEntity> getPedidos() {
-		String sql = "SELECT id, cliente, distancia, valor, coleta, entrega, data FROM pedido";
+		String sql = "SELECT id, cliente, distancia, valor, coleta, entrega, veiculo, data FROM pedido";
 		PreparedStatement stmt;
 		try {
 
@@ -48,7 +48,16 @@ public class PedidoDao {
             
             List<PedidoEntity> pedidos = new ArrayList<PedidoEntity>();
             while (rs.next()) {
-            	pedidos.add(new PedidoEntity(rs.getString("id"), rs.getString("cliente"), rs.getString("distancia"), rs.getString("valor"), rs.getString("coleta"), rs.getString("entrega"), rs.getString("veiculo"), rs.getString("data")));
+            	pedidos.add(
+            			new PedidoEntity(
+            					rs.getString("id"), 
+            					rs.getString("cliente"), 
+            					rs.getString("distancia"),
+            					rs.getString("valor"), 
+            					rs.getString("coleta"), 
+            					rs.getString("entrega"), 
+            					rs.getString("veiculo"), 
+            					rs.getString("data")));
             }
 			connection.close();
 			
