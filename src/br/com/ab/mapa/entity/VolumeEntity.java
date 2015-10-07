@@ -1,15 +1,15 @@
 package br.com.ab.mapa.entity;
 
-public class Volume {
+public class VolumeEntity {
 	private String id;
 	private String nome;
 	private String valor;
 	
-	public Volume() {
+	public VolumeEntity() {
 
 	}
 
-	public Volume(String id, String nome, String valor) {
+	public VolumeEntity(String id, String nome, String valor) {
 		this.id = id;
 		this.nome = nome;
 		this.valor = valor;

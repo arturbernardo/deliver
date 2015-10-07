@@ -1,4 +1,4 @@
-<%@page import="br.com.ab.mapa.entity.Volume"%>
+<%@page import="br.com.ab.mapa.model.Volume"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -17,6 +17,26 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script>
 
+	function postPedido() {
+
+    	var coleta = $('#start').val();
+	    var entrega = $('#end').val();
+	       
+	    $.ajax({
+	        url: "/deliver/save",
+	        data: {coleta: coleta, entrega : entrega},
+	        type: "POST",
+	        success: function(smartphone) {
+				console.log("aadasdasd");
+	        },
+	        error: function () {
+				console.log("werrrrooooo");
+	        }
+	    });
+	      
+	    event.preventDefault();	    
+	}
+	
 	function atualizaValores(){
 		calcRoute();
 	}
@@ -166,7 +186,7 @@
           	</div>
             <div class="row voffset3">
 				<div class="col-md-3">
-          			<button type="submit" class="btn btn-success" onClick="postPedido()">Confirmar Pedido</button>
+          			<button type="button" class="btn btn-success" onClick="postPedido()">Confirmar Pedido</button>
         		</div>
             </div>
 		<div class="row voffset3">

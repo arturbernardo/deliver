@@ -10,7 +10,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import br.com.ab.mapa.ConnectionFactory;
-import br.com.ab.mapa.entity.Volume;
+import br.com.ab.mapa.entity.VolumeEntity;
 
 @Component
 public class VolumeDao {
@@ -25,16 +25,16 @@ public class VolumeDao {
 		}
 	}
 
-	public List<Volume> getVolumes() {
+	public List<VolumeEntity> getVolumes() {
 		String sql = "SELECT id, nome, valor FROM volume";
 		PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             
-            List<Volume> map = new ArrayList<Volume>();
+            List<VolumeEntity> map = new ArrayList<VolumeEntity>();
             while (rs.next()) {
-            	map.add(new Volume(rs.getString("id"), rs.getString("nome"), rs.getString("valor")));
+            	map.add(new VolumeEntity(rs.getString("id"), rs.getString("nome"), rs.getString("valor")));
             }
             
 			connection.close();

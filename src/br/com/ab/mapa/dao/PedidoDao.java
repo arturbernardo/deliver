@@ -43,4 +43,17 @@ public class PedidoDao {
 		}
 		
 	}
+	
+	public void insert(String coleta, String entrega) {
+		String sql = "INSERT INTO PEDIDO(cliente, distancia, valor, coleta, entrega) VALUES('1', '1', '1', '"+coleta+"', '"+entrega+"')";
+		PreparedStatement stmt;
+		try {
+			stmt = connection.prepareStatement(sql);
+            stmt.execute();
+			connection.close();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
