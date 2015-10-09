@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import org.springframework.stereotype.Component;
 
 import br.com.ab.mapa.ConnectionFactory;
-import br.com.ab.mapa.model.Cliente;
 
 @Component
 public class ClienteDao {
@@ -22,9 +21,9 @@ public class ClienteDao {
 			throw new RuntimeException(e);
 		}
 	}
-
-	public String testeSQL() {
-		String sql = "SELECT id FROM pedido WHERE id = 1";
+		
+	public boolean existeUsuario(String user, String pass) {
+		String sql = "SELECT id FROM cliente WHERE login = '"+user+"' AND senha = '"+pass+"'";
 		PreparedStatement stmt;
 		try {
 
@@ -38,20 +37,9 @@ public class ClienteDao {
             
 			connection.close();
 			
-			return id;
+			return id.equals("") ? false : true;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		
-	}
-
-	public boolean existeUsuario(Cliente cliente) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public boolean existeUsuario(String string, String string2) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

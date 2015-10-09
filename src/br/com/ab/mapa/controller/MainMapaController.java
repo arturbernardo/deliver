@@ -31,14 +31,14 @@ public class MainMapaController {
 	} 
 	
 	@RequestMapping("/login")
-	public String login(Cliente cliente, HttpSession session, Model model) {
+	public String login(HttpSession session, Model model, HttpServletRequest request) {
 		ClienteDao clienteDao = new ClienteDao();
-		if (clienteDao.existeUsuario("", "")) {
+		if (clienteDao.existeUsuario(request.getParameter("user"), request.getParameter("pass"))) {
 			session.setAttribute("usuarioLogado", "logado");
 		}
 			
-			VolumeService volumeService = new VolumeService();
-			model.addAttribute("volumes", volumeService.getVolumes());
+		VolumeService volumeService = new VolumeService();
+		model.addAttribute("volumes", volumeService.getVolumes());
 		return "mainMapa";
 	} //${usuarioLogado.login}
 	
