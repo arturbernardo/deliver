@@ -26,7 +26,7 @@
 </head>
 <body>
 	<div class="container">
-		<div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
+		<div id="custom-bootstrap-menu" class="navbar navbar-default navbar-fixed-top" role="navigation">
 	        <div class="navbar-header"><a class="navbar-brand" href="/deliver/">GTLog</a>
 	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
 	            </button>

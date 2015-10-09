@@ -1,13 +1,16 @@
 package br.com.ab.mapa.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import br.com.ab.mapa.dao.ClienteDao;
 import br.com.ab.mapa.dao.PedidoDao;
+import br.com.ab.mapa.model.Cliente;
 import br.com.ab.mapa.service.VolumeService;
 
 @Controller
@@ -15,23 +18,38 @@ public class MainMapaController {
 		
 	@RequestMapping("/")
 	public String execute(Model model) {
-		System.out.println("Executando a lógica com Spring MVC");
 		VolumeService volumeService = new VolumeService();
-		
 		model.addAttribute("volumes", volumeService.getVolumes());
 
 		return "mainMapa";
 	}
 	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session, Model model) {
+		session.invalidate();
+		return "mainMapa";
+	} 
+	
+	@RequestMapping("/login")
+	public String login(Cliente cliente, HttpSession session, Model model) {
+		ClienteDao clienteDao = new ClienteDao();
+		if (clienteDao.existeUsuario("", "")) {
+			session.setAttribute("usuarioLogado", "logado");
+		}
+			
+			VolumeService volumeService = new VolumeService();
+			model.addAttribute("volumes", volumeService.getVolumes());
+		return "mainMapa";
+	} //${usuarioLogado.login}
+	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	public String save(HttpServletRequest request, Model model) {
-		System.out.println("save");
 		PedidoDao pedidoDao = new PedidoDao();
-		VolumeService volumeService = new VolumeService();
 
 		pedidoDao.insert(request.getParameter("coleta"), request.getParameter("entrega"), 
 				kmToDecial(request.getParameter("distancia")), request.getParameter("valor"), request.getParameter("volume"));
 		
+		VolumeService volumeService = new VolumeService();
 		model.addAttribute("volumes", volumeService.getVolumes());
 
 

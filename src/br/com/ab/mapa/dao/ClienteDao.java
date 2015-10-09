@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import org.springframework.stereotype.Component;
 
 import br.com.ab.mapa.ConnectionFactory;
+import br.com.ab.mapa.model.Cliente;
 
 @Component
 public class ClienteDao {
@@ -42,5 +43,15 @@ public class ClienteDao {
 			throw new RuntimeException(e);
 		}
 		
+	}
+
+	public boolean existeUsuario(Cliente cliente) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean existeUsuario(String string, String string2) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
