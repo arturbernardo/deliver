@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.ab.mapa.dao.ClienteDao;
 import br.com.ab.mapa.dao.PedidoDao;
-import br.com.ab.mapa.model.Cliente;
+import br.com.ab.mapa.service.ClienteService;
 import br.com.ab.mapa.service.VolumeService;
 
 @Controller
@@ -27,26 +27,28 @@ public class MainMapaController {
 	@RequestMapping("/logout")
 	public String logout(HttpSession session, Model model) {
 		session.invalidate();
+		VolumeService volumeService = new VolumeService();
+		model.addAttribute("volumes", volumeService.getVolumes());
 		return "mainMapa";
 	} 
 	
-	@RequestMapping("/login")
+	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(HttpSession session, Model model, HttpServletRequest request) {
-		ClienteDao clienteDao = new ClienteDao();
-		if (clienteDao.existeUsuario(request.getParameter("user"), request.getParameter("pass"))) {
-			session.setAttribute("usuarioLogado", "logado");
+		ClienteService clienteService = new ClienteService();
+		if (clienteService.clienteExist(request.getParameter("user"), request.getParameter("pass"))) {
+			session.setAttribute("usuarioLogado", clienteService.getClienteByUser(request.getParameter("user"), request.getParameter("pass")));
 		}
 			
 		VolumeService volumeService = new VolumeService();
 		model.addAttribute("volumes", volumeService.getVolumes());
 		return "mainMapa";
-	} //${usuarioLogado.login}
+	}
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	public String save(HttpServletRequest request, Model model) {
 		PedidoDao pedidoDao = new PedidoDao();
 
-		pedidoDao.insert(request.getParameter("coleta"), request.getParameter("entrega"), 
+		pedidoDao.insert(request.getParameter("cliente"), request.getParameter("coleta"), request.getParameter("entrega"), 
 				kmToDecial(request.getParameter("distancia")), request.getParameter("valor"), request.getParameter("volume"));
 		
 		VolumeService volumeService = new VolumeService();

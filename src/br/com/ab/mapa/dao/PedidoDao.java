@@ -25,8 +25,8 @@ public class PedidoDao {
 		}
 	}
 	
-	public void insert(String coleta, String entrega, String distancia, String valor, String volume) {
-		String sql = "INSERT INTO PEDIDO(cliente, distancia, valor, coleta, entrega) VALUES('1', '"+distancia+"', '"+valor+"', '"+coleta+"', '"+entrega+"')";
+	public void insert(String cliente, String coleta, String entrega, String distancia, String valor, String volume) {
+		String sql = "INSERT INTO PEDIDO(cliente, distancia, valor, coleta, entrega) VALUES('"+cliente+"', '"+distancia+"', '"+valor+"', '"+coleta+"', '"+entrega+"')";
 		PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement(sql);

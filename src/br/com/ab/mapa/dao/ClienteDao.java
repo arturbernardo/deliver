@@ -22,7 +22,7 @@ public class ClienteDao {
 		}
 	}
 		
-	public boolean existeUsuario(String user, String pass) {
+	public String getUserByUserAndPassword(String user, String pass) {
 		String sql = "SELECT id FROM cliente WHERE login = '"+user+"' AND senha = '"+pass+"'";
 		PreparedStatement stmt;
 		try {
@@ -37,7 +37,7 @@ public class ClienteDao {
             
 			connection.close();
 			
-			return id.equals("") ? false : true;
+			return id;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

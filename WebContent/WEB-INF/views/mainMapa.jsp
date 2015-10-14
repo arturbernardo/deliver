@@ -1,5 +1,6 @@
 <%@page import="br.com.ab.mapa.model.Volume"%>
 <%@page import="java.util.List"%>
+<%@ page session="true" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <html>
@@ -21,39 +22,7 @@
 <script
 	src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script>
-	function showLogin() {
-		$('#login').css("display", "block");
-	}
-
-	function postPedido() {
-
-		var coleta = $('#start').val();
-		var entrega = $('#end').val();
-		var distancia = $('#distance').html();
-		var valor = $('#value').html();
-		var volume = $('#volume').find(":selected").val();
-
-		$.ajax({
-			url : "/deliver/save",
-			data : {
-				volume : volume,
-				coleta : coleta,
-				entrega : entrega,
-				distancia : distancia,
-				valor : valor
-			},
-			type : "POST",
-			success : function(smartphone) {
-				console.log("aadasdasd");
-			},
-			error : function() {
-				console.log("werrrrooooo");
-			}
-		});
-
-		event.preventDefault();
-	}
-
+	
 	function atualizaValores() {
 		calcRoute();
 	}
@@ -134,17 +103,12 @@
 
 				for (var i = 0; i < route.legs.length; i++) {
 					var routeSegment = i + 1;
-					summaryPanel.innerHTML += '<b>Informações: ' + '</b><br>';
-					summaryPanel.innerHTML += route.legs[i].duration.text
-							+ '<br>';
 					summaryPanel.innerHTML += '<div id="distance">'
-							+ route.legs[i].distance.text + '</div>'
-							+ '<br><br>';
-					var res = Number(route.legs[i].distance.text.replace(" km",
+							+ route.legs[i].distance.text + '</div>';
+							var res = Number(route.legs[i].distance.text.replace(" km",
 							"").replace(/[$,]+/g, "."))
 							* Number(valor);
-					summaryPanel.innerHTML += 'Valor: R$' + '<div id="value">'
-							+ res + '</div><br><br>';
+					summaryPanel.innerHTML += 'R$:' + '<div id="value">' +  res.toFixed(2) + '</div>';
 
 				}
 
@@ -180,16 +144,20 @@
 	<div style='float: right; width: 180px;'>
 		<div style='position: fixed'>
 			<div id="login">
-				<form id="formLogin" action="/deliver/login">
-					<input type="text" name="user" placeholder="Login"> <input
-						type="password" name="pass" placeholder="Senha"> <input
-						type="submit" name="action" value="Entrar" class="btn btn-default">
+				<form id="formLogin" action="/deliver/login" method="post">
+					<input type="text" name="user" placeholder="Login"> 
+					<input type="password" name="pass" placeholder="Senha"> 
+					<input type="submit" name="action" value="Entrar" class="btn btn-default">
 				</form>
 			</div>
 		</div>
 	</div>
 	<div id="pedidoMenu" class="container-fluid">
 		<h3>Pedido:</h3>
+		
+		<div id="hiddenClient" style="display:none">
+			<input id="cliente" type="text" class="form-control" value="${sessionScope.usuarioLogado}">
+		</div>
 
 		<div class="row voffset3">
 			<div class="col-md-3">Serviço:</div>
@@ -216,20 +184,194 @@
 					onChange="calcRoute();">
 			</div>
 		</div>
-		<div class="row voffset3">
-			<div class="col-md-3">Entrega:</div>
-			<div class="col-md-6">
-				<input id="end" type="text" class="form-control"
-					onChange="calcRoute();">
+			<div class="row voffset3">
+				<div class="col-md-3">Entrega:</div>
+				<div class="col-md-6">
+					<input id="end" type="text" class="form-control"
+						onChange="calcRoute();">
+				</div>
+				<div class="col-md-1">
+					<button type="button" class="btn btn-warning" onclick="addRoteNode()"><i class="fa fa-plus"></i></button>
+				</div>
 			</div>
+			
+		<div id="routes">
+			
+			<div class="nodeRoute" id="route2" style="display:none">
+			<span><b>2</b></span> 
+			<button type="button" class="btn btn-danger" onclick="removeRoteNode(2)"><i class="fa fa-minus"></i></button>
+				<div class="row voffset3">
+					<div class="col-md-3">Coleta:</div>
+					<div class="col-md-6">
+						<input id="start2" type="text" class="form-control"
+							onChange="calcRoute();">
+					</div>
+				</div>
+				<div class="row voffset3">
+					<div class="col-md-3">Entrega:</div>
+					<div class="col-md-6">
+						<input id="end2" type="text" class="form-control"
+							onChange="calcRoute();">
+					</div>
+				</div>
+			</div>
+			
+			<div class="nodeRoute" id="route3" style="display:none">
+			<span><b>3</b></span>
+			<button type="button" class="btn btn-danger" onclick="removeRoteNode(3)"><i class="fa fa-minus"></i></button>
+				<div class="row voffset3">
+					<div class="col-md-3">Coleta:</div>
+					<div class="col-md-6">
+						<input id="start3" type="text" class="form-control"
+							onChange="calcRoute();">
+					</div>
+				</div>
+				<div class="row voffset3">
+					<div class="col-md-3">Entrega:</div>
+					<div class="col-md-6">
+						<input id="end3" type="text" class="form-control"
+							onChange="calcRoute();">
+					</div>
+				</div>
+			</div>
+			
+			<div class="nodeRoute" id="route4" style="display:none">
+			<span><b>4</b></span>
+			<button type="button" class="btn btn-danger" onclick="removeRoteNode(4)"><i class="fa fa-minus"></i></button>
+				<div class="row voffset3">
+					<div class="col-md-3">Coleta:</div>
+					<div class="col-md-6">
+						<input id="start4" type="text" class="form-control"
+							onChange="calcRoute();">
+					</div>
+				</div>
+				<div class="row voffset3">
+					<div class="col-md-3">Entrega:</div>
+					<div class="col-md-6">
+						<input id="end4" type="text" class="form-control"
+							onChange="calcRoute();">
+					</div>
+				</div>
+			</div>
+			
+			<div class="nodeRoute" id="route5" style="display:none">
+			<span><b>5</b></span>
+			<button type="button" class="btn btn-danger" onclick="removeRoteNode(5)"><i class="fa fa-minus"></i></button>
+				<div class="row voffset3">
+					<div class="col-md-3">Coleta:</div>
+					<div class="col-md-6">
+						<input id="start5" type="text" class="form-control"
+							onChange="calcRoute();">
+					</div>
+				</div>
+				<div class="row voffset3">
+					<div class="col-md-3">Entrega:</div>
+					<div class="col-md-6">
+						<input id="end5" type="text" class="form-control"
+							onChange="calcRoute();">
+					</div>
+				</div>
+			</div>
+			<div class="nodeRoute" id="route6" style="display:none">
+			<span><b>6</b></span>
+			<button type="button" class="btn btn-danger" onclick="removeRoteNode(6)"><i class="fa fa-minus"></i></button>
+				<div class="row voffset3">
+					<div class="col-md-3">Coleta:</div>
+					<div class="col-md-6">
+						<input id="start6" type="text" class="form-control"
+							onChange="calcRoute();">
+					</div>
+				</div>
+				<div class="row voffset3">
+					<div class="col-md-3">Entrega:</div>
+					<div class="col-md-6">
+						<input id="end6" type="text" class="form-control"
+							onChange="calcRoute();">
+					</div>
+				</div>
+			</div>
+			
+			<div class="nodeRoute" id="route7" style="display:none">
+			<span><b>7</b></span>
+			<button type="button" class="btn btn-danger" onclick="removeRoteNode(7)"><i class="fa fa-minus"></i></button>
+				<div class="row voffset3">
+					<div class="col-md-3">Coleta:</div>
+					<div class="col-md-6">
+						<input id="start7" type="text" class="form-control"
+							onChange="calcRoute();">
+					</div>
+				</div>
+				<div class="row voffset3">
+					<div class="col-md-3">Entrega:</div>
+					<div class="col-md-6">
+						<input id="end7" type="text" class="form-control"
+							onChange="calcRoute();">
+					</div>
+				</div>
+			</div>
+			
+			<div class="nodeRoute" id="route8" style="display:none">
+			<span><b>8</b></span>
+			<button type="button" class="btn btn-danger" onclick="removeRoteNode(8)"><i class="fa fa-minus"></i></button>
+				<div class="row voffset3">
+					<div class="col-md-3">Coleta:</div>
+					<div class="col-md-6">
+						<input id="start8" type="text" class="form-control"
+							onChange="calcRoute();">
+					</div>
+				</div>
+				<div class="row voffset3">
+					<div class="col-md-3">Entrega:</div>
+					<div class="col-md-6">
+						<input id="end8" type="text" class="form-control"
+							onChange="calcRoute();">
+					</div>
+				</div>
+			</div>
+			<div class="nodeRoute" id="route9" style="display:none">
+			<span><b>9</b></span>
+			<button type="button" class="btn btn-danger" onclick="removeRoteNode(9)"><i class="fa fa-minus"></i></button>
+				<div class="row voffset3">
+					<div class="col-md-3">Coleta:</div>
+					<div class="col-md-6">
+						<input id="start9" type="text" class="form-control"
+							onChange="calcRoute();">
+					</div>
+				</div>
+				<div class="row voffset3">
+					<div class="col-md-3">Entrega:</div>
+					<div class="col-md-6">
+						<input id="end9" type="text" class="form-control"
+							onChange="calcRoute();">
+					</div>
+				</div>
+			</div>
+			<div class="nodeRoute" id="route10" style="display:none">
+			<span><b>10</b></span>
+			<button type="button" class="btn btn-danger" onclick="removeRoteNode(10)"><i class="fa fa-minus"></i></button>
+				<div class="row voffset3">
+					<div class="col-md-3">Coleta:</div>
+					<div class="col-md-6">
+						<input id="start10" type="text" class="form-control"
+							onChange="calcRoute();">
+					</div>
+				</div>
+				<div class="row voffset3">
+					<div class="col-md-3">Entrega:</div>
+					<div class="col-md-6">
+						<input id="end10" type="text" class="form-control"
+							onChange="calcRoute();">
+					</div>
+				</div>
+			</div>
+			
 		</div>
+		
 		<div class="row voffset3">
-			<div class="col-md-3">
+			<div class="col-md-6">
 				<button type="button" class="btn btn-info">Buscar Caminho</button>
 			</div>
-		</div>
-		<div class="row voffset3">
-			<div class="col-md-3">
+			<div class="col-md-6">
 				<%
 					if (session.getAttribute("usuarioLogado") != null) {
 				%>

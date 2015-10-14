@@ -6,8 +6,13 @@ html, body, #map-canvas {
 	z-index: 0;
 }
 
+.nodeRoute {
+	background-color: #E9E5DC;
+}
+
 body {
 	padding-top: 0px !important; 
+	background: #e7e7e7;
 }
 
 #showLoginButton {
@@ -35,7 +40,16 @@ body {
     margin-left: 20px;
     background-color: #f7f7f9;
     z-index: 1;
-    
+}
+
+#routes{
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: 192px;
+}
+
+.nodeRoute button{
+	float: right;
 }
 
 #directions_panel {
