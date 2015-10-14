@@ -8,6 +8,7 @@ html, body, #map-canvas {
 
 .nodeRoute {
 	background-color: #E9E5DC;
+	padding: 5px;
 }
 
 body {

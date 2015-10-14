@@ -22,6 +22,9 @@
 <script
 	src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script>
+
+
+function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 	
 	function atualizaValores() {
 		calcRoute();
@@ -87,10 +90,27 @@
 		var end = document.getElementById("end").value;
 		var valor = $(".selectpicker option:selected").val();
 
+		
+		//passar pelas divs visiveis e pegar os start e end
+		  var waypts = [];
+		  var checkboxArray = document.getElementById('waypoints');
+		  for (var i = 0; i < checkboxArray.length; i++) {
+		    if (checkboxArray.options[i].selected) {
+		      waypts.push({
+		        location: checkboxArray[i].value,
+		        stopover: true
+		      });
+		    }
+		  }
+		
+		
+		
 		var request = {
 			origin : start,
 			destination : end,
-			travelMode : google.maps.TravelMode.DRIVING
+			travelMode : google.maps.TravelMode.DRIVING,
+		    waypoints: waypts,
+		    optimizeWaypoints: true,
 		};
 		directionsService.route(request, function(response, status) {
 			if (status == google.maps.DirectionsStatus.OK) {

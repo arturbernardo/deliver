@@ -8,9 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.com.ab.mapa.dao.ClienteDao;
 import br.com.ab.mapa.dao.PedidoDao;
 import br.com.ab.mapa.service.ClienteService;
+import br.com.ab.mapa.service.PedidoService;
 import br.com.ab.mapa.service.VolumeService;
 
 @Controller
@@ -47,8 +47,9 @@ public class MainMapaController {
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	public String save(HttpServletRequest request, Model model) {
 		PedidoDao pedidoDao = new PedidoDao();
+//		PedidoService pedidoService = new PedidoService();
 
-		pedidoDao.insert(request.getParameter("cliente"), request.getParameter("coleta"), request.getParameter("entrega"), 
+		pedidoDao.insert(request.getParameter("cliente"), request.getParameter("coleta1"), request.getParameter("entrega1"), 
 				kmToDecial(request.getParameter("distancia")), request.getParameter("valor"), request.getParameter("volume"));
 		
 		VolumeService volumeService = new VolumeService();
